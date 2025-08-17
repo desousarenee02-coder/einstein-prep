@@ -98,6 +98,48 @@
     function openDeploy(){alert("Baixe como index.html → suba no GitHub → Vercel/GitHub Pages → domínio grátis")}
 
     render();
+    // === carregar pacote JSON ===
+const PACK_URL = "./einstein_prep_litoral_sp_pack_500.json";
+
+window.DB = window.DB || {
+  municipios: [],
+  cargos: [],
+  bancas: [],
+  provas: [],
+  questoes: [],
+  autores: [],
+  aulas: []
+};
+
+async function loadPack() {
+  try {
+    const res = await fetch(PACK_URL, {cache: "no-store"});
+    const pack = await res.json();
+
+    if (pack.provas)   DB.provas   = pack.provas;
+    if (pack.questoes) DB.questoes = pack.questoes;
+    if (pack.autores)  DB.autores  = pack.autores;
+    if (pack.aulas)    DB.aulas    = pack.aulas;
+
+    const ms = [...new Set(DB.questoes.map(q => q.municipio || q.mun).filter(Boolean))];
+    const cs = [...new Set(DB.questoes.map(q => q.cargo).filter(Boolean))];
+    const bs = [...new Set(DB.questoes.map(q => q.banca).filter(Boolean))];
+    if (ms.length) DB.municipios = ms;
+    if (cs.length) DB.cargos     = cs;
+    if (bs.length) DB.bancas     = bs;
+
+    console.log("✅ Questões carregadas:", DB.questoes.length);
+  } catch (e) {
+    console.warn("Erro ao carregar pacote:", e);
+  }
+}
+
+(async () => {
+  await loadPack();
+  if (typeof init === "function") init();
+  else if (typeof render === "function") render();
+})();
+      
   </script>
 </body>
 </html>
