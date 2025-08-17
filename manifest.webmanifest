@@ -1,0 +1,9 @@
+{
+  "name": "Aprendendo com Reneé",
+  "short_name": "Reneé Prep",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0b1647",
+  "theme_color": "#0b1647",
+  "icons": []
+}
