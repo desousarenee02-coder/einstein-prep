@@ -1,145 +1,190 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Einstein Prep — Turbo Total</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprendendo com Reneé</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
-    body{margin:0;font-family:Inter,Arial,sans-serif;background:#0b1020;color:#eef2f7}
-    .container{max-width:1200px;margin:0 auto;padding:24px}
-    .nav{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .logo{font-weight:800;font-size:20px}
-    .tabs{margin:16px 0;display:flex;gap:8px;flex-wrap:wrap}
-    .tab{padding:10px 14px;border-radius:10px;background:#111a33;border:1px solid #1e2a4f;color:#c7d2fe;cursor:pointer}
-    .tab.active{background:#1e293b;color:#fff;border-color:#3b82f6}
-    .card{background:#121a34;border:1px solid #1e2a4f;border-radius:14px;padding:16px;margin:12px 0}
-    .q{margin:14px 0;padding:12px;background:#0d1530;border-radius:12px}
-    .opt{margin:6px 0;padding:6px;border-radius:8px;cursor:pointer}
-    .opt.correct{border:2px solid #34d399}
-    .opt.wrong{border:2px solid #f87171}
-    .bizu{font-size:13px;color:#a5b4fc;margin-left:22px}
-    textarea{width:100%;min-height:200px;background:#0d1530;color:#fff;border:1px solid #2b3a6a;border-radius:10px;padding:10px}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #070a14, #1a1f36);
+      color: #fff;
+    }
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0,0,0,0.5);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin: 0;
+      color: #FFD369;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    nav button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #FFD369;
+      color: #070a14;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    nav button:hover {
+      background: #ffb703;
+    }
+    .container {
+      padding: 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .question { font-weight: 600; margin-bottom: 0.8rem; }
+    .option {
+      background: rgba(255,255,255,0.1);
+      margin: 0.4rem 0;
+      padding: 0.6rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option:hover { background: rgba(255,255,255,0.2); }
+    .option.correct { background: #2ecc71 !important; }
+    .option.incorrect { background: #e63946 !important; }
+    .explanation { margin-top: 0.5rem; font-size: 0.9rem; color: #eee; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="nav">
-      <div class="logo">🧠 Einstein Prep — Turbo Total</div>
-      <button onclick="openDeploy()">☁️ Publicar grátis</button>
-    </div>
+  <header>
+    <h1>📚 Aprendendo com Reneé</h1>
+    <nav>
+      <button onclick="showTab('simulados')">Simulados</button>
+      <button onclick="showTab('autores')">Autores</button>
+      <button onclick="showTab('aulas')">Aulas 2 min</button>
+      <button onclick="showTab('importar')">Dados</button>
+    </nav>
+  </header>
 
-    <div class="tabs" id="tabs"></div>
-    <div id="content"></div>
+  <div class="container">
+    <section id="simulados" class="tab">
+      <h2>Simulados</h2>
+      <div id="quiz"></div>
+    </section>
+
+    <section id="autores" class="tab" style="display:none">
+      <h2>Autores Bizu</h2>
+      <div class="card">📌 Emilia Ferreiro: Defendia alfabetização por ciclos — nada de acelerar! O lema é "alfabetizou, passou".</div>
+      <div class="card">📌 Paulo Freire: Educação libertadora, criticava ensino bancário. Bizu: "Aprender é construir junto".</div>
+      <div class="card">📌 Vygotsky: Zona de Desenvolvimento Proximal (ZDP). Bizu: "Com ajuda, o aluno vai além".</div>
+    </section>
+
+    <section id="aulas" class="tab" style="display:none">
+      <h2>Aulas Rápidas</h2>
+      <div class="card">🎥 Português: <a href="#">Ver vídeo 1</a></div>
+      <div class="card">🎥 Educação Especial: <a href="#">Ver vídeo 2</a></div>
+    </section>
+
+    <section id="importar" class="tab" style="display:none">
+      <h2>Importar JSON</h2>
+      <textarea id="jsonInput" style="width:100%;height:200px;"></textarea><br>
+      <button onclick="importJSON()">Importar</button>
+    </section>
   </div>
 
-  <script>
-    const DATA={
-      municipios:["Santos","Cubatão","Praia Grande","Guarujá"],
-      cargos:["Professor de Educação Especial","Professor de Língua Portuguesa (EF II)","Professor de Ensino Fundamental I (Anos Iniciais)","Professor Adjunto"],
-      provas:[{mun:"Santos",cargo:"Professor Adjunto",titulo:"Gabarito PMS 2024",url:"https://www.institutomais.org.br/ckfinder/userfiles/files/Comunicado%20de%20Divulga%C3%A7%C3%A3o%20do%20Gabarito%20da%20Prova%20Objetiva(7).pdf"}],
-      questoes:[
-        {cargo:"Professor de Língua Portuguesa (EF II)",enunciado:"Onde está a crase certa?",
-          alternativas:[
-            {txt:"Cheguei a escola cedo",bizu:"Chegar nunca usa crase. Esquece."},
-            {txt:"Dirigi-me a empresa contratante",bizu:"Empresa não pede artigo fixo. Nada de crase."},
-            {txt:"Referi-me à diretora do colégio",bizu:"Mulherada pede crase: diretora, professora… aqui é a boa!"},
-            {txt:"Voltarei a às 18h",bizu:"Duplicou A = pegadinha clássica."}
-          ],correta:2
-        },
-        {cargo:"Professor de Educação Especial",enunciado:"Pra que serve o PEI?",
-          alternativas:[
-            {txt:"Definir punições",bizu:"PEI não é castigo."},
-            {txt:"Organizar metas e apoios personalizados",bizu:"PEI = receita de bolo do aluno."},
-            {txt:"Selecionar alunos",bizu:"Inclusão não seleciona, inclui todo mundo."},
-            {txt:"Registrar notas",bizu:"Boletim faz isso, não o PEI."}
-          ],correta:1
+<script>
+let quizData = [
+  {
+    enunciado: "Qual é o bizu da Emilia Ferreiro?",
+    alternativas: [
+      "Queria acelerar alfabetização em massa",
+      "Defendia ciclos de aprendizagem",
+      "Era contra alfabetizar",
+      "Defendia apenas ensino médio"
+    ],
+    correta: 1,
+    explicacao: "Ela defendia alfabetizar por ciclos, não acelerar o processo."
+  },
+  {
+    enunciado: "O que é a ZDP segundo Vygotsky?",
+    alternativas: [
+      "Zona de Desenvolvimento Pessoal",
+      "Zona de Desenvolvimento Proximal",
+      "Zona de Didática Progressiva",
+      "Zona de Desenvolvimento Prático"
+    ],
+    correta: 1,
+    explicacao: "A ZDP mostra que com ajuda, o aluno pode ir além do que faria sozinho."
+  }
+];
+
+function loadQuiz() {
+  let quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = "";
+  quizData.forEach((q, qi)=> {
+    let card = document.createElement("div");
+    card.className = "card";
+    let qEl = document.createElement("div");
+    qEl.className = "question";
+    qEl.textContent = (qi+1)+". "+q.enunciado;
+    card.appendChild(qEl);
+
+    q.alternativas.forEach((alt, ai)=>{
+      let opt = document.createElement("div");
+      opt.className = "option";
+      opt.textContent = alt;
+      opt.onclick = ()=>{
+        if(ai === q.correta){
+          opt.classList.add("correct");
+        } else {
+          opt.classList.add("incorrect");
         }
-      ],
-      autores:[
-        {nome:"Emília Ferreiro",bizu:"Alfabetização em fases, não corrida. Ciclos: passou, segue."},
-        {nome:"Piaget",bizu:"Cada idade tem sua caixinha. Não adianta empurrar."},
-        {nome:"Vygotsky",bizu:"Sozinho vai até A. Com ajuda vai até B. Professor=escada."},
-        {nome:"Paulo Freire",bizu:"Não é cofrinho. É diálogo e crítica."},
-        {nome:"Wallon",bizu:"Sem emoção não aprende."},
-        {nome:"Montessori",bizu:"Ambiente livre+autonomia=aprendizado."},
-        {nome:"Gardner",bizu:"QI não manda sozinho. São 8 inteligências."},
-        {nome:"Saviani",bizu:"Escola ensina o que a vida não ensina."},
-        {nome:"Perrenoud",bizu:"Avaliar é durante o caminho, não só na prova."}
-      ],
-      bizu:["Crase só rola com verbo pedindo A + palavra feminina.","PEI = mapa personalizado do aluno.","ZDP: sozinho vai até A, com ajuda até B."]
-    };
+        let exp = document.createElement("div");
+        exp.className = "explanation";
+        exp.textContent = q.explicacao;
+        card.appendChild(exp);
+      };
+      card.appendChild(opt);
+    });
+    quizDiv.appendChild(card);
+  });
+}
 
-    const tabs=["Provas","Simulados","Autores Bizu","Bizus Gerais","Dados"];
-    let currentTab=tabs[0];
+function showTab(tab){
+  document.querySelectorAll(".tab").forEach(el=>el.style.display="none");
+  document.getElementById(tab).style.display="block";
+}
 
-    function renderTabs(){const el=document.getElementById('tabs');el.innerHTML='';tabs.forEach(t=>{const b=document.createElement('div');b.className='tab'+(t===currentTab?' active':'');b.textContent=t;b.onclick=()=>{currentTab=t;render()};el.appendChild(b)})}
-
-    function renderContent(){const c=document.getElementById('content');c.innerHTML='';
-      if(currentTab==='Provas')return renderProvas(c);
-      if(currentTab==='Simulados')return renderSim(c);
-      if(currentTab==='Autores Bizu')return renderAutores(c);
-      if(currentTab==='Bizus Gerais')return renderBizu(c);
-      if(currentTab==='Dados')return renderJSON(c);
-    }
-
-    function renderProvas(root){root.innerHTML='<h3>📄 Provas</h3>';DATA.provas.forEach(p=>{const a=document.createElement('a');a.href=p.url;a.textContent=p.titulo;a.target='_blank';root.appendChild(a);root.appendChild(document.createElement('br'))})}
-
-    function renderSim(root){root.innerHTML='<h3>📝 Simulados</h3>';DATA.questoes.forEach((q,idx)=>{const box=document.createElement('div');box.className='q';box.innerHTML='<b>'+(idx+1)+'. '+q.enunciado+'</b>';q.alternativas.forEach((alt,i)=>{const opt=document.createElement('div');opt.className='opt';opt.textContent=String.fromCharCode(65+i)+') '+alt.txt;opt.onclick=()=>{if(i===q.correta){opt.classList.add('correct');}else{opt.classList.add('wrong');}showBizu(opt,alt.bizu)};box.appendChild(opt)});root.appendChild(box)})}
-
-    function showBizu(opt,text){const b=document.createElement('div');b.className='bizu';b.textContent='💡 '+text;opt.appendChild(b)}
-
-    function renderAutores(root){root.innerHTML='<h3>📚 Autores Bizu</h3>';DATA.autores.forEach(a=>{const d=document.createElement('div');d.className='card';d.innerHTML='<b>'+a.nome+'</b><br>💡 '+a.bizu;root.appendChild(d)})}
-
-    function renderBizu(root){root.innerHTML='<h3>⚡ Bizus Gerais</h3>';const ul=document.createElement('ul');DATA.bizu.forEach(b=>{const li=document.createElement('li');li.textContent=b;ul.appendChild(li)});root.appendChild(ul)}
-
-    function renderJSON(root){const ta=document.createElement('textarea');ta.value=JSON.stringify(DATA,null,2);root.appendChild(ta)}
-
-    function render(){renderTabs();renderContent()}
-    function openDeploy(){alert("Baixe como index.html → suba no GitHub → Vercel/GitHub Pages → domínio grátis")}
-
-    render();
-    // === carregar pacote JSON ===
-const PACK_URL = "./einstein_prep_litoral_sp_pack_500.json";
-
-window.DB = window.DB || {
-  municipios: [],
-  cargos: [],
-  bancas: [],
-  provas: [],
-  questoes: [],
-  autores: [],
-  aulas: []
-};
-
-async function loadPack() {
+function importJSON(){
   try {
-    const res = await fetch(PACK_URL, {cache: "no-store"});
-    const pack = await res.json();
-
-    if (pack.provas)   DB.provas   = pack.provas;
-    if (pack.questoes) DB.questoes = pack.questoes;
-    if (pack.autores)  DB.autores  = pack.autores;
-    if (pack.aulas)    DB.aulas    = pack.aulas;
-
-    const ms = [...new Set(DB.questoes.map(q => q.municipio || q.mun).filter(Boolean))];
-    const cs = [...new Set(DB.questoes.map(q => q.cargo).filter(Boolean))];
-    const bs = [...new Set(DB.questoes.map(q => q.banca).filter(Boolean))];
-    if (ms.length) DB.municipios = ms;
-    if (cs.length) DB.cargos     = cs;
-    if (bs.length) DB.bancas     = bs;
-
-    console.log("✅ Questões carregadas:", DB.questoes.length);
-  } catch (e) {
-    console.warn("Erro ao carregar pacote:", e);
+    let data = JSON.parse(document.getElementById("jsonInput").value);
+    quizData = data;
+    loadQuiz();
+    showTab('simulados');
+  } catch(e){
+    alert("JSON inválido");
   }
 }
 
-(async () => {
-  await loadPack();
-  if (typeof init === "function") init();
-  else if (typeof render === "function") render();
-})();
-      
-  </script>
+window.onload = loadQuiz;
+</script>
+
 </body>
 </html>
