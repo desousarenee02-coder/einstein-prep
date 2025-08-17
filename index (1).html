@@ -1,0 +1,301 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aprendendo com Reneé</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0b1647">
+<style>
+:root{
+  --blue:#0b1647; --blue2:#1e2f78; --sky:#60a5fa; --tile:#0e1a56; --ink:#eaf2ff; --muted:#a8c1ff;
+  --ok:#22c55e; --bad:#ef4444; --chip:#132369; --stroke:#2b3a8f; --white:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Poppins,system-ui,Roboto,Arial;background:radial-gradient(1200px 700px at 10% -10%, var(--blue2), var(--blue));color:var(--ink)}
+.container{max-width:1120px;margin:0 auto;padding:18px}
+header{padding:24px 0 10px}
+.brand{display:flex;gap:14px;align-items:center}
+.brand .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#93c5fd,#a78bfa);display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.brand h1{margin:0;font-family:"Playfair Display",serif;font-weight:800;font-size:42px;color:#eaf2ff;text-shadow:0 2px 10px rgba(96,165,250,.35)}
+nav{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+.navbtn{background:var(--tile);color:var(--ink);border:1px solid var(--stroke);border-radius:14px;padding:10px 16px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.navbtn:hover{filter:brightness(1.2)}
+.panel{margin-top:10px;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:900px){.panel{grid-template-columns:repeat(4,1fr)}}
+.tile{background:var(--tile);border-radius:16px;padding:16px;border:1px solid var(--stroke);min-height:120px;display:flex;flex-direction:column;gap:8px;justify-content:space-between;box-shadow:0 8px 18px rgba(0,0,0,.22)}
+.tile h3{margin:0;color:#eaf2ff}
+.tile .muted{color:var(--muted);font-size:13px}
+.tile .cta{align-self:flex-start;background:var(--sky);color:#0b1647;border:none;border-radius:12px;padding:8px 12px;font-weight:800;cursor:pointer}
+.filters{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+select,input{background:#0b1b5b;color:#eaf2ff;border:1px solid var(--stroke);border-radius:12px;padding:10px;font-weight:600}
+.content{margin-top:14px}
+.card{background:#0b1b5b;border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 8px 18px rgba(0,0,0,.22)}
+.pill{display:inline-block;background:var(--chip);border:1px solid var(--stroke);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:700;color:#93c5fd}
+.q{background:#0b1b5b;border:1px solid var(--stroke);border-radius:14px;padding:12px;margin:12px 0}
+.opt{margin:8px 0;padding:10px;border-radius:10px;border:1px solid var(--stroke);cursor:pointer;font-weight:600;background:#0f225f;color:#eaf2ff}
+.opt.correct{border-color:var(--ok);background:#0e3a1e}
+.opt.wrong{border-color:var(--bad);background:#3a0e0e}
+.bizu{font-size:13px;color:#cfe3ff;background:#0a132f;border:1px dashed var(--stroke);border-radius:12px;padding:8px;margin-top:6px;white-space:pre-wrap}
+.pager{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px}
+.link{display:flex;justify-content:space-between;gap:12px;background:#0b1b5b;border:1px dashed var(--stroke);padding:12px;border-radius:12px;text-decoration:none;color:var(--ink)}
+footer{padding:26px 0 40px;color:#cfe3ff;text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">📘</div>
+        <h1>Aprendendo com Reneé</h1>
+      </div>
+      <nav>
+        <button class="navbtn" onclick="scrollToArea('painel')">Painel</button>
+        <button class="navbtn" onclick="scrollToArea('filtros')">Filtros</button>
+        <button class="navbtn" onclick="scrollToArea('conteudo')">Conteúdo</button>
+      </nav>
+    </header>
+
+    <!-- Painel de escolhas -->
+    <section id="painel" class="panel">
+      <div class="tile"><h3>Simulados</h3><div class="muted">Corrige na hora com BIZU de todas alternativas.</div><button class="cta" onclick="goto('Simulado')">Abrir</button></div>
+      <div class="tile"><h3>Provas Oficiais</h3><div class="muted">Editais, provas e gabaritos por município, banca e cargo.</div><button class="cta" onclick="goto('Provas')">Abrir</button></div>
+      <div class="tile"><h3>Autores (BIZU)</h3><div class="muted">Frase-cola + linha extra.</div><button class="cta" onclick="goto('Autores Bizu')">Abrir</button></div>
+      <div class="tile"><h3>Aulas 2 min</h3><div class="muted">Vídeos curtos focando o que mais cai.</div><button class="cta" onclick="goto('Aulas 2min')">Abrir</button></div>
+      <div class="tile"><h3>Revisar Erradas</h3><div class="muted">Treine só o que errou (salvo no aparelho).</div><button class="cta" onclick="modoErradas()">Abrir</button></div>
+      <div class="tile"><h3>Dados (importar)</h3><div class="muted">Cole um JSON e troque o banco em 1 clique.</div><button class="cta" onclick="goto('Dados (importar)')">Abrir</button></div>
+      <div class="tile"><h3>Instalar App</h3><div class="muted">Use offline (PWA).</div><button class="cta" onclick="alert('No GitHub: envie manifest.webmanifest e sw.js (já te mandei). Depois abra o site e escolha “Adicionar à tela inicial”.')">Como ativar</button></div>
+      <div class="tile"><h3>Sobre</h3><div class="muted">Feito para passar em 1º. 💥</div><button class="cta" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">Rodapé</button></div>
+    </section>
+
+    <!-- Filtros -->
+    <section id="filtros" class="filters">
+      <select id="f-mun"></select>
+      <select id="f-cargo"></select>
+      <select id="f-banca"></select>
+      <select id="f-ano"><option>(todos os anos)</option></select>
+      <input id="f-busca" placeholder="🔎 palavra-chave (crase, PEI, ZDP…)" />
+      <select id="f-modo">
+        <option>Simulado (aleatório)</option>
+        <option>Prova Real (ordem)</option>
+        <option>Errei e quero revisar</option>
+      </select>
+      <select id="f-qtd">
+        <option>3 por página</option><option selected>10 por página</option><option>20 por página</option>
+      </select>
+    </section>
+
+    <!-- Conteúdo -->
+    <section id="conteudo" class="content">
+      <div id="tabs" class="filters"></div>
+      <div id="root"></div>
+    </section>
+
+    <footer>© <span id="year"></span> Aprendendo com Reneé — BIZU do BIZU.</footer>
+  </div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("/sw.js").catch(()=>{}); });
+}
+const $=s=>document.querySelector(s);
+document.getElementById('year').textContent=new Date().getFullYear();
+function scrollToArea(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+const TABS=["Provas","Simulado","Autores Bizu","Aulas 2min","Dados (importar)"];
+let currentTab="Simulado";
+let STATE={page:1,perPage:10,modo:"Simulado (aleatório)",busca:"",mun:"Santos",cargo:"Professor de Língua Portuguesa (EF II)",banca:"(todas)",ano:"(todos os anos)"};
+
+const DB={municipios:["Santos","Cubatão","Praia Grande","Guarujá"],cargos:["Professor de Educação Especial","Professor de Língua Portuguesa (EF II)","Professor de Ensino Fundamental I (Anos Iniciais)","Professor Adjunto"],bancas:["IBAM","Instituto Mais","Vunesp","Prefeitura"],provas:[],questoes:[],autores:[],aulas:[]};
+
+const WRONG_KEY="renee_wrong_v1";
+const loadWrong=()=>{try{return JSON.parse(localStorage.getItem(WRONG_KEY)||"[]")}catch{return []}};
+const saveWrong=(arr)=>localStorage.setItem(WRONG_KEY,JSON.stringify([...new Set(arr)]));
+let WRONG_IDS=loadWrong();
+
+function goto(tab){ currentTab=tab; STATE.page=1; render(); }
+function modoErradas(){ currentTab="Simulado"; STATE.modo="Errei e quero revisar"; STATE.page=1; render(); }
+
+function renderTabs(){
+  const el=document.getElementById("tabs"); el.innerHTML="";
+  TABS.forEach(t=>{ const b=document.createElement("button"); b.className="navbtn"; b.textContent=t; if(t===currentTab) b.style.filter="brightness(1.25)"; b.onclick=()=>goto(t); el.appendChild(b); });
+}
+
+function initFilters(){
+  const m=document.getElementById("f-mun"), c=document.getElementById("f-cargo"), b=document.getElementById("f-banca"), s=document.getElementById("f-busca"), a=document.getElementById("f-ano");
+  m.innerHTML=c.innerHTML=b.innerHTML=a.innerHTML="";
+  const bancas=["(todas)",...DB.bancas];
+  const anos=[ "(todos os anos)", ...[...new Set(DB.questoes.map(q=>q.ano))].sort() ];
+  DB.municipios.forEach(v=> m.append(new Option(v,v)));
+  DB.cargos.forEach(v=> m.nextElementSibling.append(new Option(v,v))); // c
+  DB.cargos.forEach(()=>{}); // nothing
+  c.innerHTML=""; DB.cargos.forEach(v=> c.append(new Option(v,v)));
+  bancas.forEach(v=> b.append(new Option(v,v)));
+  anos.forEach(v=> a.append(new Option(v,v)));
+  m.value=STATE.mun; c.value=STATE.cargo; b.value=STATE.banca; a.value=STATE.ano;
+
+  document.getElementById("f-qtd").onchange=e=>{STATE.perPage=parseInt(e.target.value); STATE.page=1; render();};
+  m.onchange=()=>{STATE.mun=m.value; STATE.page=1; render();}
+  c.onchange=()=>{STATE.cargo=c.value; STATE.page=1; render();}
+  b.onchange=()=>{STATE.banca=b.value; STATE.page=1; render();}
+  a.onchange=()=>{STATE.ano=a.value; STATE.page=1; render();}
+  s.oninput=()=>{STATE.busca=s.value.toLowerCase(); STATE.page=1; render();}
+  document.getElementById("f-modo").onchange=e=>{STATE.modo=e.target.value; STATE.page=1; render();}
+}
+
+function byFilters(q){
+  const mun=q.municipio||q.mun;
+  if(mun!==STATE.mun) return false;
+  if(q.cargo!==STATE.cargo) return false;
+  if(STATE.banca!=="(todas)" && q.banca!==STATE.banca) return false;
+  if(STATE.ano!=="(todos os anos)" && String(q.ano)!==String(STATE.ano)) return false;
+  if(STATE.busca){
+    const hay=(q.enunciado+" "+q.alternativas.map(a=>a.txt).join(" ")).toLowerCase();
+    if(!hay.includes(STATE.busca)) return false;
+  }
+  if(STATE.modo.startsWith("Errei")){
+    const id=`${mun}-${q.cargo}-${q.ano}-${q.enunciado.slice(0,24)}`;
+    return WRONG_IDS.includes(id);
+  }
+  return true;
+}
+
+function pager(total){
+  const p=document.createElement("div"); p.className="pager";
+  const pages=Math.max(1,Math.ceil(total/STATE.perPage));
+  const mk=(t,fn)=>{const b=document.createElement("button"); b.className="navbtn"; b.textContent=t; b.onclick=fn; return b;}
+  p.append(mk("◀",()=>{STATE.page=Math.max(1,STATE.page-1); render();}), mk(`Página ${STATE.page}/${pages}`,()=>{}), mk("▶",()=>{STATE.page=Math.min(pages,STATE.page+1); render();}));
+  return p;
+}
+
+function uiProvas(root){
+  const list=DB.provas.filter(p=>p.mun===STATE.mun && p.cargo===STATE.cargo && (STATE.banca==="(todas)"||p.banca===STATE.banca));
+  const box=card("📄 Provas oficiais / links");
+  if(!list.length){ box.append(muted("Nada encontrado para esse filtro. Adicione em Dados.")); root.append(box); return; }
+  list.forEach(p=>{
+    const a=document.createElement("a"); a.className="link"; a.target="_blank"; a.href=p.url;
+    a.innerHTML=`<div><b>${p.titulo}</b><div class="muted">${p.banca||""} ${p.ano||""}</div></div><div><span class="pill">${p.mun}</span> <span class="pill">${p.cargo}</span></div>`;
+    box.append(a);
+  });
+  root.append(box);
+}
+
+function uiSimulado(root){
+  let pool=DB.questoes.filter(byFilters);
+  if(!pool.length){ root.append(card("📝 Simulado", "Nenhuma questão neste filtro. Importe um pacote em Dados.")); return; }
+  if(STATE.modo.startsWith("Simulado")) pool = shuffle(pool);
+  const total=pool.length, start=(STATE.page-1)*STATE.perPage, slice=pool.slice(start, start+STATE.perPage);
+  const box=card(`📝 ${STATE.modo} — ${STATE.cargo} (${total})`);
+  slice.forEach((q,i)=> box.append(renderQuestion(q, start+i+1)));
+  box.append(pager(total)); root.append(box);
+}
+
+function renderQuestion(q, num){
+  const wrap=document.createElement("div"); wrap.className="q";
+  const meta=`<span class="pill">${q.municipio||q.mun}</span> <span class="pill">${q.cargo}</span> <span class="pill">${q.banca||""} ${q.ano||""}</span>`;
+  wrap.innerHTML=`<div class="muted">${meta}</div><b>${num}. ${q.enunciado}</b>`;
+  const id=`${q.municipio||q.mun}-${q.cargo}-${q.ano}-${q.enunciado.slice(0,24)}`;
+  q.alternativas.forEach((a,i)=>{
+    const opt=document.createElement("div"); opt.className="opt"; opt.textContent=`${String.fromCharCode(65+i)}) ${a.txt}`;
+    opt.onclick=()=>{
+      if(opt.classList.contains("correct")||opt.classList.contains("wrong")) return;
+      if(i===q.correta){opt.classList.add("correct"); showBizu(opt,"✅ "+a.bizu)}
+      else{opt.classList.add("wrong"); showBizu(opt,"❌ "+a.bizu); WRONG_IDS.push(id); saveWrong(WRONG_IDS);}
+      showAll(wrap,q);
+    };
+    wrap.append(opt);
+  });
+  return wrap;
+}
+
+function showAll(container,q){
+  const box=document.createElement("div"); box.className="bizu";
+  const lines=q.alternativas.map((a,i)=>`${String.fromCharCode(65+i)}) ${i===q.correta?"✔️":"✖️"} ${a.bizu}`).join("\n");
+  const extra=q.explicacao?`\n🧠 Resumo: ${q.explicacao}`:"";
+  box.textContent=lines+extra; container.appendChild(box);
+}
+
+function uiAutores(root){
+  const grid=card("📚 Autores — Bizu do Bizu");
+  (DB.autores||[]).forEach(a=> grid.append(muted(`• ${a.nome}: ${a.bizu}${a.extra?(" — "+a.extra):""}`)));
+  root.append(grid);
+}
+
+function uiAulas(root){
+  const list=(DB.aulas||[]).filter(a=>a.cargo===STATE.cargo);
+  const box=card("🎥 Aulas 2 min");
+  if(!list.length){ box.append(muted("Sem vídeos cadastrados para esse cargo. Adicione em Dados.")); root.append(box); return; }
+  list.forEach(a=>{
+    const pre=document.createElement("pre"); pre.className="bizu"; pre.textContent=`${a.titulo}\n- `+a.topicos.join("\n- ");
+    box.append(pre);
+    (a.links||[]).forEach(u=>{ const aTag=document.createElement("a"); aTag.className="link"; aTag.href=u; aTag.target="_blank"; aTag.textContent="Assistir"; box.append(aTag); });
+  });
+  root.append(box);
+}
+
+function uiDados(root){
+  const box=card("🧩 Importar/Exportar Banco");
+  const info=muted("Cole um JSON com chaves: municipio, cargo, banca, ano, enunciado, alternativas[{txt,bizu}], correta, explicacao. O app substitui o banco atual.");
+  const ta=document.createElement("textarea"); ta.style.width="100%"; ta.style.height="240px"; ta.value=JSON.stringify({provas:DB.provas, questoes:DB.questoes.slice(0,5), autores:DB.autores, aulas:DB.aulas}, null, 2);
+  const b1=button("Importar JSON",()=>{try{const obj=JSON.parse(ta.value); if(obj.questoes) DB.questoes=obj.questoes; if(obj.provas) DB.provas=obj.provas; if(obj.autores) DB.autores=obj.autores; if(obj.aulas) DB.aulas=obj.aulas; alert("Banco atualizado!"); initFilters(); render(); }catch(e){alert("JSON inválido")}});
+  const b2=button("Copiar JSON",()=>{navigator.clipboard.writeText(ta.value); alert("Copiado!")});
+  box.append(info, ta, b1, document.createTextNode(" "), b2);
+  root.append(box);
+}
+
+function render(){
+  renderTabs();
+  const root=document.getElementById("root"); root.innerHTML="";
+  if(currentTab==="Provas") return uiProvas(root);
+  if(currentTab==="Simulado") return uiSimulado(root);
+  if(currentTab==="Autores Bizu") return uiAutores(root);
+  if(currentTab==="Aulas 2min") return uiAulas(root);
+  if(currentTab==="Dados (importar)") return uiDados(root);
+}
+
+function card(title, text){
+  const d=document.createElement("div"); d.className="card";
+  const h=document.createElement("h3"); h.textContent=title; d.appendChild(h);
+  if(text){ const p=document.createElement("pre"); p.style.whiteSpace="pre-wrap"; p.textContent=text; d.appendChild(p); }
+  return d;
+}
+function muted(t){ const s=document.createElement("div"); s.className="muted"; s.textContent=t; return s; }
+function button(label,on){ const b=document.createElement("button"); b.className="navbtn"; b.textContent=label; b.onclick=on; return b; }
+function showBizu(opt,text){ const b=document.createElement("div"); b.className="bizu"; b.textContent=text; opt.appendChild(b); }
+function shuffle(a){return a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(v=>v[1])}
+
+// ===== Loader de pacotes =====
+const PACKS=[
+  "./einstein_prep_litoral_sp_pack_500.json",
+  "./pack_renee_v2_200.json"
+];
+async function loadPacks(){
+  let allQ=[], provas=[], autores=[], aulas=[];
+  for (const url of PACKS){
+    try{
+      const r=await fetch(url,{cache:"no-store"});
+      if(!r.ok) continue;
+      const p=await r.json();
+      const qs = p.questoes ? p.questoes : (Array.isArray(p.provas) && p.provas[0]?.enunciado ? p.provas : []);
+      allQ=allQ.concat(qs||[]);
+      if(Array.isArray(p.provas) && !p.provas[0]?.enunciado) provas=provas.concat(p.provas);
+      autores=autores.concat(p.autores||[]);
+      aulas=aulas.concat(p.aulas||[]);
+    }catch(e){}
+  }
+  const seen=new Set(); DB.questoes=allQ.filter(q=>{const k=(q.enunciado||'').slice(0,120); if(seen.has(k)) return false; seen.add(k); return true;});
+  DB.provas=provas; DB.autores=autores; DB.aulas=aulas;
+
+  const ms=[...new Set(DB.questoes.map(q=>q.municipio||q.mun).filter(Boolean))];
+  const cs=[...new Set(DB.questoes.map(q=>q.cargo).filter(Boolean))];
+  const bs=[...new Set(DB.questoes.map(q=>q.banca).filter(Boolean))];
+  if(ms.length) DB.municipios=ms; if(cs.length) DB.cargos=cs; if(bs.length) DB.bancas=bs;
+}
+
+(async()=>{ await loadPacks(); initFilters(); render(); })();
+</script>
+</body>
+</html>
